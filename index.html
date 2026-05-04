@@ -197,6 +197,31 @@
             color: var(--text);
         }
 
+                /* Bouton Happy Hour */
+        .btn-warning {
+            background: oklch(from var(--warning) l c h/.15);
+            color: var(--warning);
+            border-color: oklch(from var(--warning) l c h/.3);
+        }
+        .btn-warning:hover {
+            background: oklch(from var(--warning) l c h/.25);
+        }
+        .btn-warning.active {
+            background: var(--warning);
+            color: #fff;
+            border-color: var(--warning);
+        }
+        .promo-row { 
+            color: var(--warning); 
+            font-weight: 600; 
+        }
+        .price-promo { 
+            text-decoration: line-through; 
+            color: var(--muted); 
+            font-size: 0.65rem; 
+            margin-right: 4px;
+        }
+
         /* PANEL MENU */
         .panel-menu {
             background: var(--surface);
@@ -865,9 +890,9 @@
         </div>
         <div class="facture-items" id="facture-items"></div>
         <div class="facture-footer">
-            <div class="facture-totals">
-                <div class="total-row"><span>Sous-total</span><span class="total-amount" id="subtotal">0,00 €</span>
-                </div>
+                        <div class="facture-totals">
+                <div class="total-row" id="row-subtotal" style="display:none;"><span>Sous-total brut</span><span class="total-amount" id="subtotal-brut">0,00 €</span></div>
+                <div class="total-row promo-row" id="row-promo" style="display:none;"><span>Remise Happy Hour (20%)</span><span class="total-amount" id="promo-amount">-0,00 €</span></div>
                 <div class="total-row main"><span>Total</span><span class="total-amount" id="total">0,00 €</span></div>
             </div>
             <div class="facture-actions">
