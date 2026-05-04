@@ -1052,8 +1052,10 @@
               ${mediaEl(p, 'product-card')}
               <div class="product-card-name">${esc(p.name)}</div>
               ${p.desc ? `<div class="product-card-desc">${esc(p.desc)}</div>` : ''}
-              <div class="product-card-price">${fmt(p.price)}</div>
-            </div>`).join('')}
+<div class="product-card-price">
+  ${isPromoActive ? `<span class="price-promo">${fmt(p.price)}</span>` : ''}
+  ${fmt(getPrice(p.price))}
+</div>            </div>`).join('')}
           </div>
         </div>`;
                 }).join('')}</div>`;
@@ -1082,12 +1084,14 @@
             let sub = 0;
             el.innerHTML = keys.map(id => {
                 const p = products.find(r => r.id == id); if (!p) return '';
-                const lt = p.price * cart[id]; sub += lt;
+const unitPrice = getPrice(p.price);
+const lt = unitPrice * cart[id];
+sub += lt;
                 return `<div class="facture-line">
       <div class="fl-info">
         <div class="fl-name">${p.emoji || '•'} ${esc(p.name)}</div>
-        <div class="fl-unit">${fmt(p.price)} / unité</div>
-      </div>
+<div class="fl-unit">${fmt(unitPrice)} / unité</div>
+</div>
       <div class="fl-qty">
         <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
         <input type="number" class="qty-input" value="${cart[id]}" min="1" max="999" 
@@ -1108,7 +1112,7 @@
             let total = 0;
             keys.forEach(id => {
                 const p = products.find(r => r.id == id);
-                total += p.price * cart[id];
+total += getPrice(p.price) * cart[id];
             });
 
             // Copier uniquement le montant total
