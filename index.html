@@ -1150,6 +1150,32 @@
             toast('Service clôturé et sauvegardé !', 'success');
         }
 
+        let isPromoActive = false;
+
+// Fonction pour activer/désactiver le Happy Hour
+function togglePromo() {
+  isPromoActive = !isPromoActive;
+  const btn = document.getElementById('btn-promo');
+  const badge = document.getElementById('promo-badge');
+  
+  if (isPromoActive) {
+    btn.classList.add('active');
+    badge.style.display = 'inline-block';
+    toast('Mode Happy Hour activé (-20%)', 'success');
+  } else {
+    btn.classList.remove('active');
+    badge.style.display = 'none';
+    toast('Mode Happy Hour désactivé', 'success');
+  }
+  renderMenu();
+  renderCart();
+}
+
+// Fonction pour calculer le nouveau prix avec la réduction
+function getPrice(basePrice) {
+  return isPromoActive ? basePrice * 0.8 : basePrice;
+}
+        
         // --- SETTINGS & JSON EXPORT/IMPORT ---
         function openSettings() {
             renderHistory();
